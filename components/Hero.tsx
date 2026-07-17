@@ -10,15 +10,16 @@ interface HeroProps {
 
 const ROLES = [
   'FRONTEND DEVELOPER',
-  'BACKEND DEVELOPER',
-  'UI/UX DESIGNER',
-  'SOFTWARE ENGINEER'
+  'MOBILE DEVELOPER',
+  'UI/UX DEVELOPER',
+  'WEB DEVELOPER'
 ];
 
 export default function Hero({ isLoaded }: HeroProps) {
   const eyebrowRef = useRef<HTMLDivElement>(null);
   const word1Ref = useRef<HTMLSpanElement>(null);
   const word2Ref = useRef<HTMLSpanElement>(null);
+  const descRef = useRef<HTMLDivElement>(null);
   const [shouldAnimate, setShouldAnimate] = useState(false);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function Hero({ isLoaded }: HeroProps) {
     setVisible(eyebrowRef.current, 50, { transform: 'translateY(0)', opacity: '1' });
     setVisible(word1Ref.current, 200, { transform: 'translateY(0)' });
     setVisible(word2Ref.current, 350, { transform: 'translateY(0)' });
+    setVisible(descRef.current, 500, { transform: 'translateY(0)', opacity: '1' }); // Animates right after the name
   }, [shouldAnimate]);
 
   return (
@@ -65,7 +67,7 @@ export default function Hero({ isLoaded }: HeroProps) {
           ref={eyebrowRef}
           style={{ 
             overflow: 'hidden', 
-            marginBottom: '1.75rem',
+            marginBottom: '0.5rem',
             transform: 'translateY(30px)',
             opacity: 0,
             transition: 'transform 0.5s ease, opacity 0.5s ease',
@@ -120,6 +122,21 @@ export default function Hero({ isLoaded }: HeroProps) {
             >
               Joseph.
             </span>            
+          </div>
+        </div>
+
+        {/* Description / Tagline */}
+        <div style={{ overflow: 'hidden', marginTop: '0rem' }}>
+          <div
+            ref={descRef}
+            className="font-[family-name:var(--font-sans)] text-m sm:text-l md:text-xl font-light tracking-wide max-w-xl transition-colors duration-300"
+            style={{
+              color: 'var(--text-muted, #a1a1aa)', 
+              transform: 'translateY(50px)',
+              opacity: 0,
+            }}
+          >
+            Loves to build high-performance web applications, fluid mobile apps, and refined digital experiences.
           </div>
         </div>
 
