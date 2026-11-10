@@ -1,83 +1,193 @@
-@import url('https://fonts.cdnfonts.com/css/metropolis-2');
 @import "tw-animate-css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── FK GROTESK TRIAL ─────────────────────────── */
+
+/* Thin */
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-Thin.otf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-ThinItalic.otf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Light */
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-Light.otf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-LightItalic.otf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Regular */
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-Regular.otf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-Italic.otf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Medium */
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-Medium.otf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-MediumItalic.otf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-Bold.otf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-BoldItalic.otf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Black */
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-Black.otf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FK Grotesk';
+  src: url('/assets/fonts/FKGroteskTrial-BlackItalic.otf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── ROOT VARIABLES ───────────────────────────── */
+
 :root {
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --font-metropolis: 'Metropolis', sans-serif;
+  --font-fk-grotesk: 'FK Grotesk', sans-serif;
 }
 
 /* ── THEME TOKENS ─────────────────────────────── */
+
 [data-theme='dark'],
 :root {
-  --bg:           #0a0a09;
+  --bg: #0a0a09;
   --bg-secondary: #111110;
-  --bg-card:      #1a1a1a;
-  --bg-card-alt:  #121210;
-  --bg-tag:       #161615;  
-  --bg-tag-alt:   #121212;
-  --border:       #262626;
-  --border-card:  #1c1c1a;
-  --border-alt:   #222220;
-  --text:         #ffffff;
-  --text-muted:   #a0a0a0;
-  --text-dim:     #707070;
-  --text-subtle:  #5c5c59;
+  --bg-card: #1a1a1a;
+  --bg-card-alt: #121210;
+  --bg-tag: #161615;
+  --bg-tag-alt: #121212;
+  --border: #262626;
+  --border-card: #1c1c1a;
+  --border-alt: #222220;
+  --text: #ffffff;
+  --text-muted: #a0a0a0;
+  --text-dim: #707070;
+  --text-subtle: #5c5c59;
   --text-eyebrow: #9a9a96;
   --scrollbar-thumb: #3a3a38;
   --footer-divider: #1a1a18;
   --hero-scroll-track: #0a0a09;
-  --tag-hover-bg:  #0a0a09;
+  --tag-hover-bg: #0a0a09;
   --tag-hover-text: #ffffff;
   --tag-hover-border: #0a0a09;
-  --input-bg: rgba(255,255,255,0.03);
-  --input-border: rgba(255,255,255,0.1);
+  --input-bg: rgba(255, 255, 255, 0.03);
+  --input-border: rgba(255, 255, 255, 0.1);
   --nav-blend: difference;
   --work-card-bg: #1a1a1a;
 }
 
 [data-theme='light'] {
-  --bg:           #f5f5f3;
+  --bg: #f5f5f3;
   --bg-secondary: #ebebea;
-  --bg-card:      #e4e4e2;
-  --bg-card-alt:  #efefed;
-  --bg-tag:       #e8e8e6;
-  --bg-tag-alt:   #e2e2e0;
-  --border:       #d1d1ce;
-  --border-card:  #d8d8d5;
-  --border-alt:   #d4d4d1;
-  --text:         #0a0a09;
-  --text-muted:   #4a4a47;
-  --text-dim:     #6a6a67;
-  --text-subtle:  #8a8a87;
+  --bg-card: #e4e4e2;
+  --bg-card-alt: #efefed;
+  --bg-tag: #e8e8e6;
+  --bg-tag-alt: #e2e2e0;
+  --border: #d1d1ce;
+  --border-card: #d8d8d5;
+  --border-alt: #d4d4d1;
+  --text: #0a0a09;
+  --text-muted: #4a4a47;
+  --text-dim: #6a6a67;
+  --text-subtle: #8a8a87;
   --text-eyebrow: #5c5c59;
   --scrollbar-thumb: #b8b8b5;
   --footer-divider: #d1d1ce;
   --hero-scroll-track: #f5f5f3;
-  --tag-hover-bg:  #0a0a09;
+  --tag-hover-bg: #0a0a09;
   --tag-hover-text: #f5f5f3;
   --tag-hover-border: #0a0a09;
-  --input-bg: rgba(0,0,0,0.04);
-  --input-border: rgba(0,0,0,0.12);
+  --input-bg: rgba(0, 0, 0, 0.04);
+  --input-border: rgba(0, 0, 0, 0.12);
   --nav-blend: normal;
   --work-card-bg: #e4e4e2;
 }
+
+/* ── GLOBAL RESET ─────────────────────────────── */
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border-color: var(--border);
 }
 
 html {
   scroll-behavior: smooth;
+  font-family: var(--font-fk-grotesk);
 }
 
 body {
-  font-family: var(--font-metropolis), 'Barlow', sans-serif;
+  font-family: var(--font-fk-grotesk);
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
@@ -85,15 +195,28 @@ body {
 }
 
 /* ── SCROLLBAR ─────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 2px; }
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 2px;
+}
 
 /* ── SCROLL REVEAL ─────────────────────────────── */
+
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
 }
 
 .reveal.visible {
@@ -104,7 +227,9 @@ body {
 .reveal-left {
   opacity: 0;
   transform: translateX(-40px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
 }
 
 .reveal-left.visible {
@@ -115,7 +240,9 @@ body {
 .reveal-right {
   opacity: 0;
   transform: translateX(40px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
 }
 
 .reveal-right.visible {
@@ -123,7 +250,8 @@ body {
   transform: translateX(0);
 }
 
-/* Delay utilities */
+/* ── DELAY UTILITIES ──────────────────────────── */
+
 .delay-1 { transition-delay: 0.1s; }
 .delay-2 { transition-delay: 0.2s; }
 .delay-3 { transition-delay: 0.3s; }
@@ -132,6 +260,7 @@ body {
 .delay-6 { transition-delay: 0.6s; }
 
 /* ── HERO WORD REVEAL ─────────────────────────── */
+
 .hero-word {
   display: block;
   transform: translateY(110%);
@@ -143,10 +272,25 @@ body {
 }
 
 /* ── SCROLL LINE ───────────────────────────────── */
+
 @keyframes scrollAnim {
-  0%   { transform: scaleY(0); opacity: 0; transform-origin: top; }
-  50%  { transform: scaleY(1); opacity: 1; transform-origin: top; }
-  100% { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+    transform-origin: top;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+    transform-origin: top;
+  }
+
+  100% {
+    transform: scaleY(0);
+    opacity: 0;
+    transform-origin: bottom;
+  }
 }
 
 .scroll-line {
@@ -154,10 +298,13 @@ body {
 }
 
 /* ── PROJECT HOVER ─────────────────────────────── */
+
 .project-item {
   position: relative;
   overflow: hidden;
-  transition: color 0.3s, padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    color 0.3s,
+    padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-item::before {
@@ -172,14 +319,27 @@ body {
   z-index: 0;
 }
 
-.project-item:hover::before { width: 100%; }
-.project-item:hover { color: var(--bg); padding-left: 2rem; }
+.project-item:hover::before {
+  width: 100%;
+}
 
-.project-item > * { position: relative; z-index: 1; }
+.project-item:hover {
+  color: var(--bg);
+  padding-left: 2rem;
+}
+
+.project-item > * {
+  position: relative;
+  z-index: 1;
+}
 
 /* ── TECH TAG ─────────────────────────────────── */
+
 .tech-tag {
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
 }
 
 .tech-tag:hover {
@@ -189,9 +349,15 @@ body {
 }
 
 /* ── LOADER ANIMATION ─────────────────────────── */
+
 @keyframes letterUp {
-  from { transform: translateY(110%); }
-  to   { transform: translateY(0); }
+  from {
+    transform: translateY(110%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 .loader-letter {
@@ -201,14 +367,20 @@ body {
 }
 
 @keyframes fadeSlideOut {
-  to { opacity: 0; visibility: hidden; }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
+
+/* ── TAILWIND THEME ───────────────────────────── */
 
 @layer base {
   .theme {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
+    --font-heading: var(--font-fk-grotesk);
+    --font-sans: var(--font-fk-grotesk);
   }
+
   :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
@@ -239,10 +411,11 @@ body {
     --sidebar-primary: oklch(0.205 0 0);
     --sidebar-primary-foreground: oklch(0.985 0 0);
     --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-accent-foreground: oklch(0.145 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
   }
+
   .dark {
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
@@ -272,26 +445,21 @@ body {
     --sidebar-primary: oklch(0.488 0.243 264.376);
     --sidebar-primary-foreground: oklch(0.985 0 0);
     --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
   }
 }
 
-* {
-  border-color: hsl(var(--border) / 0.1);
+/* ── VIEW TRANSITIONS ─────────────────────────── */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
-body {
-  background-color: var(--bg);
-  color: var(--text);
-}
-html {
-  font-family: var(--font-metropolis), 'Barlow', sans-serif;
-}
-::view-transition-old(root), ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
-}
+
+/* ── LENIS SMOOTH SCROLL ──────────────────────── */
+
 html.lenis,
 html.lenis body {
   height: auto;

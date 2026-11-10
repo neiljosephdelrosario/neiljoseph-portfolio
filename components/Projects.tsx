@@ -55,16 +55,19 @@ export default function Projects() {
     return () => observer.disconnect();
   }, []);
 
-  // Design system typography definitions
-  const headingFont = "'Monument Extended', var(--font-metropolis), sans-serif";
-  const bodyFont = "var(--font-sans), 'Inter', sans-serif";
+  // Clean and reliable FK Grotesk font stack variable
+  const fontStack = "var(--font-fk-grotesk), 'FK Grotesk', sans-serif";
 
   return (
     <section
       id="projects"
       ref={sectionRef}
-      className="min-h-screen relative"
-      style={{ background: 'var(--bg)', padding: '8rem 3rem' }}
+      className="min-h-screen relative font-bold"
+      style={{ 
+        background: 'var(--bg)', 
+        padding: '8rem 3rem',
+        fontFamily: fontStack 
+      }}
     >
       {/* Decorative background element */}
       <div 
@@ -82,7 +85,7 @@ export default function Projects() {
       <div className="max-w-6xl mx-auto relative">
         <div className="reveal mb-20">
           <div style={{ 
-            fontFamily: bodyFont,
+            fontFamily: fontStack,
             fontSize: '0.72rem', 
             fontWeight: 700, 
             letterSpacing: '0.2em', 
@@ -94,24 +97,26 @@ export default function Projects() {
           }}> 
           </div>
           <div 
-            className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-wide"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold lowercase tracking-wide"
             style={{ 
-              fontFamily: headingFont,
+              fontFamily: fontStack,
               color: 'var(--text)',
               lineHeight: 0.9,
               marginBottom: '0.5rem',
             }}
           >
-            Projects
+            projects
           </div>
           <div style={{
-            fontFamily: bodyFont,
+            fontFamily: fontStack,
             fontSize: '1rem',
             color: 'var(--text-muted)',
             maxWidth: '500px',
             lineHeight: 1.6,
             marginTop: '1.5rem',
-          }}>
+          }}
+          className="font-bold"
+          >
             A showcase of recent work spanning web applications, mobile solutions, and design systems.
           </div>
         </div>
@@ -125,6 +130,7 @@ export default function Projects() {
               style={{
                 background: 'var(--bg-secondary)',
                 border: '1px solid var(--border-card)',
+                fontFamily: fontStack,
               }}
             >
               <div className="grid md:grid-cols-2 gap-0">
@@ -157,7 +163,7 @@ export default function Projects() {
                 >
                   <div className="flex items-center gap-4 mb-4">
                     <span style={{
-                      fontFamily: bodyFont,
+                      fontFamily: fontStack,
                       fontSize: '0.7rem',
                       fontWeight: 700,
                       letterSpacing: '0.05em',
@@ -170,22 +176,22 @@ export default function Projects() {
                     </span>
                     {i === 0 && (
                       <span style={{
-                        fontFamily: bodyFont,
+                        fontFamily: fontStack,
                         fontSize: '0.65rem',
-                        fontWeight: 600,
+                        fontWeight: 700,
                         letterSpacing: '0.15em',
                         color: 'var(--text-subtle)',
-                        textTransform: 'uppercase',
+                        textTransform: 'lowercase',
                       }}>
-                        Featured Project
+                        featured project
                       </span>
                     )}
                   </div>
 
                   <h3 style={{ 
-                    fontFamily: bodyFont,
+                    fontFamily: fontStack,
                     fontSize: '2rem', 
-                    fontWeight: 800, 
+                    fontWeight: 700, 
                     color: 'var(--text)', 
                     letterSpacing: '-0.02em', 
                     marginBottom: '1rem',
@@ -197,13 +203,15 @@ export default function Projects() {
                   </h3>
 
                   <p style={{ 
-                    fontFamily: bodyFont,
+                    fontFamily: fontStack,
                     fontSize: '1rem', 
                     color: 'var(--text-muted)', 
                     lineHeight: 1.7, 
                     marginBottom: '2rem',
                     maxWidth: '90%',
-                  }}>
+                  }}
+                  className="font-bold"
+                  >
                     {p.desc}
                   </p>
 
@@ -212,11 +220,10 @@ export default function Projects() {
                     {p.tech.map(t => (
                       <span
                         key={t}
-                        className="tech-tag"
+                        className="tech-tag font-bold"
                         style={{
-                          fontFamily: bodyFont,
+                          fontFamily: fontStack,
                           fontSize: '0.7rem',
-                          fontWeight: 600,
                           color: 'var(--text-muted)',
                           border: '1px solid var(--border-card)',
                           padding: '0.3rem 0.75rem',

@@ -93,14 +93,14 @@ export default function Contact() {
     }
   };
 
-  // Explicit font definitions
-  const headingFont = "'Monument Extended', var(--font-metropolis), sans-serif";
-  const bodyFont = "var(--font-sans), 'Inter', sans-serif";
+  // Clean and reliable FK Grotesk font stack variable
+  const fontStack = "var(--font-fk-grotesk), 'FK Grotesk', sans-serif";
 
   return (
     <section
       id="contact"
       ref={sectionRef}
+      className="font-bold"
       style={{
         background: 'var(--bg)',
         color: 'var(--text)',
@@ -108,6 +108,7 @@ export default function Contact() {
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
+        fontFamily: fontStack,
       }}
     >
       <div className="max-w-4xl mx-auto w-full">
@@ -115,15 +116,15 @@ export default function Contact() {
         {/* Title */}
         <div className="text-center mb-12">
           <h2
-            className="reveal font-black uppercase tracking-wide mb-4"
+            className="reveal font-bold lowercase tracking-wide mb-4"
             style={{ 
-              fontFamily: headingFont,
+              fontFamily: fontStack,
               fontSize: 'clamp(1.8rem, 4.5vw, 3.5rem)', 
               lineHeight: 0.9, 
               color: 'var(--text)' 
             }}
           >
-            {isSubmitted ? 'Project Brief Sent' : 'Start a project with me'}
+            {isSubmitted ? 'project brief sent' : 'start a project with me'}
           </h2>
 
           {/* Progress bar */}
@@ -143,9 +144,9 @@ export default function Contact() {
 
         {/* Wizard box */}
         <div
-          className="reveal rounded-xl p-8 md:p-12 max-w-2xl mx-auto shadow-2xl transition-all duration-300"
+          className="reveal rounded-xl p-8 md:p-12 max-w-2xl mx-auto shadow-2xl transition-all duration-300 font-bold"
           style={{
-            fontFamily: bodyFont,
+            fontFamily: fontStack,
             background: 'var(--bg-card-alt)',
             border: '1px solid var(--border-alt)',
             minHeight: '380px',
@@ -165,10 +166,10 @@ export default function Contact() {
               >
                 <span className="text-xl font-bold" style={{ color: 'var(--text)' }}>✓</span>
               </div>
-              <h3 className="font-bold text-2xl mb-2 tracking-tight" style={{ color: 'var(--text)' }}>
-                Thank you, brief compiled.
+              <h3 className="font-bold text-2xl mb-2 tracking-tight lowercase" style={{ color: 'var(--text)', fontFamily: fontStack }}>
+                thank you, brief compiled.
               </h3>
-              <p className="text-sm max-w-sm leading-relaxed tracking-normal" style={{ color: 'var(--text-eyebrow)' }}>
+              <p className="text-sm max-w-sm leading-relaxed tracking-normal font-bold" style={{ color: 'var(--text-eyebrow)', fontFamily: fontStack }}>
                 Data was securely sent directly to my workspace. I'll get back to you shortly!
               </p>
               <button
@@ -178,12 +179,12 @@ export default function Contact() {
                   setIsSubmitted(false);
                   setFormData({ services: [], projectName: '', projectGoals: '', email: '' });
                 }}
-                className="mt-8 text-xs font-bold tracking-[0.15em] uppercase transition-colors duration-200"
-                style={{ color: 'var(--text-subtle)', background: 'transparent', border: 'none', cursor: 'pointer' }}
+                className="mt-8 text-xs font-bold tracking-[0.15em] lowercase transition-colors duration-200"
+                style={{ color: 'var(--text-subtle)', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: fontStack }}
                 onMouseEnter={e => ((e.target as HTMLElement).style.color = 'var(--text)')}
                 onMouseLeave={e => ((e.target as HTMLElement).style.color = 'var(--text-subtle)')}
               >
-                ← Clear / Setup Another
+                ← clear / setup another
               </button>
             </div>
           ) : (
@@ -193,8 +194,8 @@ export default function Contact() {
               {step === 1 && (
                 <div className="flex flex-col gap-6">
                   <div>
-                    <h3 className="font-bold text-xl mb-1 tracking-tight" style={{ color: 'var(--text)' }}>What do you need?</h3>
-                    <p className="text-sm tracking-normal" style={{ color: 'var(--text-eyebrow)' }}>Select all that apply to your project requirements.</p>
+                    <h3 className="font-bold text-xl mb-1 tracking-tight lowercase" style={{ color: 'var(--text)', fontFamily: fontStack }}>what do you need?</h3>
+                    <p className="text-sm tracking-normal font-bold" style={{ color: 'var(--text-eyebrow)', fontFamily: fontStack }}>Select all that apply to your project requirements.</p>
                   </div>
                   <div className="flex flex-col gap-3 mt-2">
                     {['Frontend Development', 'UI/UX Interactive Design', 'Fullstack Development', 'Mobile Development', 'Backend Development', 'Other'].map(service => {
@@ -204,9 +205,9 @@ export default function Contact() {
                           type="button"
                           key={service}
                           onClick={() => handleServiceToggle(service)}
-                          className="w-full text-left p-4 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-between"
+                          className="w-full text-left p-4 rounded-lg text-sm font-bold transition-all duration-200 flex items-center justify-between"
                           style={{
-                            fontFamily: bodyFont,
+                            fontFamily: fontStack,
                             background: isSelected ? 'var(--bg-card)' : 'var(--bg-secondary)',
                             border: `1px solid ${isSelected ? 'var(--text)' : 'var(--border)'}`,
                             color: isSelected ? 'var(--text)' : 'var(--text-muted)',
@@ -236,8 +237,8 @@ export default function Contact() {
               {step === 2 && (
                 <div className="flex flex-col gap-5">
                   <div>
-                    <h3 className="font-bold text-xl mb-1 tracking-tight" style={{ color: 'var(--text)' }}>Project Name</h3>
-                    <p className="text-sm tracking-normal" style={{ color: 'var(--text-eyebrow)' }}>Tell me the name of your brand or initiative.</p>
+                    <h3 className="font-bold text-xl mb-1 tracking-tight lowercase" style={{ color: 'var(--text)', fontFamily: fontStack }}>project name</h3>
+                    <p className="text-sm tracking-normal font-bold" style={{ color: 'var(--text-eyebrow)', fontFamily: fontStack }}>Tell me the name of your brand or initiative.</p>
                   </div>
                   <input
                     type="text"
@@ -245,9 +246,9 @@ export default function Contact() {
                     placeholder="e.g. Borealis Graphite"
                     value={formData.projectName}
                     onChange={(e) => handleInputChange('projectName', e.target.value)}
-                    className="w-full rounded-lg p-4 text-base outline-none transition-colors mt-4"
+                    className="w-full rounded-lg p-4 text-base outline-none transition-colors mt-4 font-bold"
                     style={{
-                      fontFamily: bodyFont,
+                      fontFamily: fontStack,
                       background: 'var(--input-bg)',
                       border: '1px solid var(--input-border)',
                       color: 'var(--text)',
@@ -262,8 +263,8 @@ export default function Contact() {
               {step === 3 && (
                 <div className="flex flex-col gap-5">
                   <div>
-                    <h3 className="font-bold text-xl mb-1 tracking-tight" style={{ color: 'var(--text)' }}>Project Goals</h3>
-                    <p className="text-sm tracking-normal" style={{ color: 'var(--text-eyebrow)' }}>Briefly describe your timeline objectives or features.</p>
+                    <h3 className="font-bold text-xl mb-1 tracking-tight lowercase" style={{ color: 'var(--text)', fontFamily: fontStack }}>project goals</h3>
+                    <p className="text-sm tracking-normal font-bold" style={{ color: 'var(--text-eyebrow)', fontFamily: fontStack }}>Briefly describe your timeline objectives or features.</p>
                   </div>
                   <textarea
                     rows={4}
@@ -271,9 +272,9 @@ export default function Contact() {
                     placeholder="Describe your design specifications or software details..."
                     value={formData.projectGoals}
                     onChange={(e) => handleInputChange('projectGoals', e.target.value)}
-                    className="w-full rounded-lg p-4 text-base outline-none transition-colors resize-none mt-4"
+                    className="w-full rounded-lg p-4 text-base outline-none transition-colors resize-none mt-4 font-bold"
                     style={{
-                      fontFamily: bodyFont,
+                      fontFamily: fontStack,
                       background: 'var(--input-bg)',
                       border: '1px solid var(--input-border)',
                       color: 'var(--text)',
@@ -288,8 +289,8 @@ export default function Contact() {
               {step === 4 && (
                 <div className="flex flex-col gap-5">
                   <div>
-                    <h3 className="font-bold text-xl mb-1 tracking-tight" style={{ color: 'var(--text)' }}>Contact Email</h3>
-                    <p className="text-sm tracking-normal" style={{ color: 'var(--text-eyebrow)' }}>Where should I send the interactive scope proposal?</p>
+                    <h3 className="font-bold text-xl mb-1 tracking-tight lowercase" style={{ color: 'var(--text)', fontFamily: fontStack }}>contact email</h3>
+                    <p className="text-sm tracking-normal font-bold" style={{ color: 'var(--text-eyebrow)', fontFamily: fontStack }}>Where should I send the interactive scope proposal?</p>
                   </div>
                   <input
                     type="email"
@@ -298,9 +299,9 @@ export default function Contact() {
                     placeholder="john@example.com"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full rounded-lg p-4 text-base outline-none transition-colors mt-4"
+                    className="w-full rounded-lg p-4 text-base outline-none transition-colors mt-4 font-bold"
                     style={{
-                      fontFamily: bodyFont,
+                      fontFamily: fontStack,
                       background: 'var(--input-bg)',
                       border: '1px solid var(--input-border)',
                       color: 'var(--text)',
@@ -321,12 +322,12 @@ export default function Contact() {
                     type="button"
                     onClick={prevStep}
                     disabled={isSubmitting}
-                    className="font-bold text-sm tracking-wide px-6 py-3 rounded-md transition-colors disabled:opacity-30"
-                    style={{ fontFamily: bodyFont, background: 'var(--bg-card)', color: 'var(--text)', border: 'none', cursor: 'pointer' }}
+                    className="font-bold text-sm tracking-wide px-6 py-3 rounded-md transition-colors disabled:opacity-30 lowercase"
+                    style={{ fontFamily: fontStack, background: 'var(--bg-card)', color: 'var(--text)', border: 'none', cursor: 'pointer' }}
                     onMouseEnter={e => (e.currentTarget.style.background = 'var(--border)')}
                     onMouseLeave={e => (e.currentTarget.style.background = 'var(--bg-card)')}
                   >
-                    Back
+                    back
                   </button>
                 ) : (
                   <div />
@@ -337,19 +338,19 @@ export default function Contact() {
                     type="button"
                     onClick={nextStep}
                     disabled={step === 1 && formData.services.length === 0}
-                    className="font-bold text-sm tracking-wide px-8 py-3 rounded-md transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
-                    style={{ fontFamily: bodyFont, background: 'var(--text)', color: 'var(--bg)', border: 'none', cursor: 'pointer' }}
+                    className="font-bold text-sm tracking-wide px-8 py-3 rounded-md transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none lowercase"
+                    style={{ fontFamily: fontStack, background: 'var(--text)', color: 'var(--bg)', border: 'none', cursor: 'pointer' }}
                   >
-                    Continue
+                    continue
                   </button>
                 ) : (
                   <button
                     type="submit"
                     disabled={!formData.email || isSubmitting}
-                    className="font-bold text-sm tracking-wide px-8 py-3 rounded-md transition-all active:scale-95 disabled:opacity-40"
-                    style={{ fontFamily: bodyFont, background: 'var(--text)', color: 'var(--bg)', border: 'none', cursor: 'pointer' }}
+                    className="font-bold text-sm tracking-wide px-8 py-3 rounded-md transition-all active:scale-95 disabled:opacity-40 lowercase"
+                    style={{ fontFamily: fontStack, background: 'var(--text)', color: 'var(--bg)', border: 'none', cursor: 'pointer' }}
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Project Brief'}
+                    {isSubmitting ? 'sending...' : 'send project brief'}
                   </button>
                 )}
               </div>

@@ -74,34 +74,38 @@ export default function TechStack() {
     ? TECH_DATA
     : TECH_DATA.filter(t => t.category === activeCategory);
 
-  // Layout architecture font references
-  const headingFont = "'Monument Extended', var(--font-metropolis), sans-serif";
-  const bodyFont = "var(--font-sans), 'Inter', sans-serif";
+  // Clean and reliable FK Grotesk font stack variable
+  const fontStack = "var(--font-fk-grotesk), 'FK Grotesk', sans-serif";
 
   return (
     <section
       id="tech-stack"
       ref={sectionRef}
-      className="min-h-screen"
-      style={{ background: 'var(--bg)', color: 'var(--text)', padding: '6rem 3rem' }}
+      className="min-h-screen font-bold"
+      style={{ 
+        background: 'var(--bg)', 
+        color: 'var(--text)', 
+        padding: '6rem 3rem',
+        fontFamily: fontStack 
+      }}
     >
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
 
         <div className="reveal">
           <h2 
-            className="text-2xl sm:text-3xl font-black uppercase tracking-wide mb-5"
+            className="text-2xl sm:text-3xl font-bold lowercase tracking-wide mb-5"
             style={{ 
-              fontFamily: headingFont,
+              fontFamily: fontStack,
               color: 'var(--text)', 
               lineHeight: 0.85 
             }}
           >
-            Tech Stack
+            tech stack
           </h2>
           <p 
-            className="text-[1.02rem] leading-relaxed tracking-normal"
+            className="text-[1.02rem] leading-relaxed tracking-normal font-bold"
             style={{ 
-              fontFamily: bodyFont, 
+              fontFamily: fontStack, 
               color: 'var(--text-muted)', 
               maxWidth: '800px' 
             }}
@@ -116,11 +120,10 @@ export default function TechStack() {
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className="transition-all duration-200 uppercase tracking-wider rounded-md"
+              className="transition-all duration-200 lowercase tracking-wider rounded-md font-bold"
               style={{
-                fontFamily: bodyFont,
+                fontFamily: fontStack,
                 fontSize: '0.72rem',
-                fontWeight: 700,
                 padding: '0.6rem 1.4rem',
                 border: '1px solid',
                 borderColor: activeCategory === category ? 'var(--border-card)' : 'var(--border)',
@@ -130,14 +133,14 @@ export default function TechStack() {
               }}
             >
               {category === 'all'
-                ? 'All'
+                ? 'all'
                 : category === 'frontend'
-                ? 'Front-End'
+                ? 'front-end'
                 : category === 'backend'
-                ? 'Back-End & Database'
+                ? 'back-end & database'
                 : category === 'languages'
-                ? 'Languages'
-                : 'Ecosystem & Tools'}
+                ? 'languages'
+                : 'ecosystem & tools'}
             </button>
           ))}
         </div>
@@ -151,11 +154,10 @@ export default function TechStack() {
             >
               {t.icon && <SimpleIcon icon={t.icon} size={42} />}
               <span
-                className="transition-colors duration-300"
+                className="transition-colors duration-300 font-bold"
                 style={{
-                  fontFamily: bodyFont,
+                  fontFamily: fontStack,
                   fontSize: '0.92rem',
-                  fontWeight: 600,
                   color: 'var(--text-muted)',
                   letterSpacing: '-0.01em',
                 }}
