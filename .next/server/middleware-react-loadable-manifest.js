@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components\\\\Hero.tsx -> @/components/ASCIIText\":{\"id\":\"components\\\\Hero.tsx -> @/components/ASCIIText\",\"files\":[\"static/chunks/_app-pages-browser_components_ASCIIText_jsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{\"components\\\\Hero.tsx -> @/components/ASCIIText\":{\"id\":\"components\\\\Hero.tsx -> @/components/ASCIIText\",\"files\":[\"static/chunks/_app-pages-browser_components_ASCIIText_tsx.js\"]}}"

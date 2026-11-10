@@ -1,6 +1,35 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+export type ASCIITextProps = {
+  text?: string;
+  asciiFontSize?: number;
+  charset?: string;
+  fontFamily?: string;
+  fontWeight?: number | string;
+  textColor?: string;
+  colors?: string[];
+  textScale?: number;
+  blocks?: number;
+  waves?: number;
+  waveSpeed?: number;
+  chroma?: number;
+  tilt?: number;
+  hueShift?: number;
+  scramble?: number;
+  clickRipple?: boolean;
+  intro?: boolean;
+  idle?: boolean;
+  interactive?: boolean;
+  theme?: 'dark' | 'light';
+  className?: string;
+  style?: React.CSSProperties;
+};
+
+type Ripple = { x: number; y: number; age: number };
+
+type Build = (value: string, family: string, weight: number | string, color: string, characters: string) => void;
 
 const CHARSET = ' .\'`^",:;Il!i~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$';
 const FONT = "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
@@ -132,9 +161,9 @@ void main() {
   fragColor = vec4(color, alpha);
 }`;
 
-const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
-const compile = (gl, type, source) => {
+const compile = (gl: WebGL2RenderingContext, type: number, source: string) => {
   const shader = gl.createShader(type);
   if (!shader) return null;
   gl.shaderSource(shader, source);
@@ -144,7 +173,7 @@ const compile = (gl, type, source) => {
   return null;
 };
 
-const toRgb = color => {
+const toRgb = (color: string): number[] => {
   const ctx = document.createElement('canvas').getContext('2d');
   if (!ctx) return [1, 1, 1];
   ctx.fillStyle = '#ffffff';
@@ -158,7 +187,7 @@ const toRgb = color => {
   return [parts[0] / 255, parts[1] / 255, parts[2] / 255];
 };
 
-const drawText = (text, fontFamily, fontWeight, color) => {
+const drawText = (text: string, fontFamily: string, fontWeight: number | string, color: string) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   if (!ctx) return null;
@@ -175,7 +204,7 @@ const drawText = (text, fontFamily, fontWeight, color) => {
   return canvas;
 };
 
-const drawGlyphs = (charset, fontFamily) => {
+const drawGlyphs = (charset: string, fontFamily: string) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   if (!ctx) return null;
@@ -214,10 +243,10 @@ export default function ASCIIText({
   theme = 'dark',
   className = '',
   style
-}) {
-  const containerRef = useRef(null);
-  const canvasRef = useRef(null);
-  const buildRef = useRef(null);
+}: ASCIITextProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const buildRef = useRef<Build | null>(null);
   const [fallback, setFallback] = useState(false);
   const glyphs = Array.from(charset).length > 1 ? charset : CHARSET;
   const palette = (colors?.length ? colors : ['#ffffff']).slice(0, 3);
@@ -248,11 +277,11 @@ export default function ASCIIText({
 
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     const gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: false });
-    let program = null;
-    let buffer = null;
-    let textTexture = null;
-    let glyphTexture = null;
-    const uniforms = {};
+    let program: WebGLProgram | null = null;
+    let buffer: WebGLBuffer | null = null;
+    let textTexture: WebGLTexture | null = null;
+    let glyphTexture: WebGLTexture | null = null;
+    const uniforms: Record<string, WebGLUniformLocation | null> = {};
 
     if (gl) {
       const vertex = compile(gl, gl.VERTEX_SHADER, VERTEX);
@@ -311,7 +340,7 @@ export default function ASCIIText({
       return undefined;
     }
 
-    const upload = (texture, source, smooth) => {
+    const upload = (texture: WebGLTexture | null, source: HTMLCanvasElement, smooth: boolean) => {
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
       gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
@@ -339,7 +368,7 @@ export default function ASCIIText({
       targetY: 0,
       inside: false,
       visible: true,
-      ripples: [],
+      ripples: [] as Ripple[],
       introPlayed: false
     };
     const rippleData = new Float32Array(RIPPLES * 4);
@@ -349,7 +378,14 @@ export default function ASCIIText({
     let last = performance.now();
     let alive = true;
 
-    const build = (value, family, weight, color, characters, playIntro) => {
+    const build = (
+      value: string,
+      family: string,
+      weight: number | string,
+      color: string,
+      characters: string,
+      playIntro: boolean
+    ) => {
       const textCanvas = drawText(value, family, weight, color);
       const glyphCanvas = drawGlyphs(characters, family);
       if (!textCanvas || !glyphCanvas) return;
@@ -380,7 +416,7 @@ export default function ASCIIText({
       wake();
     };
 
-    const frame = now => {
+    const frame = (now: number) => {
       raf = 0;
       if (resizePending) {
         resizePending = false;
@@ -467,12 +503,12 @@ export default function ASCIIText({
       raf = requestAnimationFrame(frame);
     };
 
-    buildRef.current = (value, family, weight, color, characters) => {
+    buildRef.current = (value: string, family: string, weight: number | string, color: string, characters: string) => {
       build(value, family, weight, color, characters, true);
       wake();
     };
 
-    const locate = event => {
+    const locate = (event: PointerEvent) => {
       const rect = container.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
@@ -481,14 +517,14 @@ export default function ASCIIText({
       state.targetX = clamp((x / Math.max(1, rect.width)) * 2 - 1, -1, 1);
       state.targetY = clamp((y / Math.max(1, rect.height)) * 2 - 1, -1, 1);
     };
-    const onMove = event => {
+    const onMove = (event: PointerEvent) => {
       locate(event);
       state.inside = true;
     };
     const onLeave = () => {
       state.inside = false;
     };
-    const onDown = event => {
+    const onDown = (event: PointerEvent) => {
       const s = settingsRef.current;
       if (!s.interactive || !s.clickRipple) return;
       locate(event);
@@ -549,15 +585,12 @@ export default function ASCIIText({
   return (
     <div
       ref={containerRef}
-      className={className}
-      style={{ position: 'absolute', inset: 0, touchAction: 'pan-y', ...style }}
+      className={`absolute inset-0 touch-pan-y${className ? ` ${className}` : ''}`}
+      style={style}
       aria-label={text}
       role="img"
     >
-      <canvas
-        ref={canvasRef}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }}
-      />
+      <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full" />
       {fallback && (
         <div
           style={{
@@ -578,4 +611,3 @@ export default function ASCIIText({
     </div>
   );
 }
-  

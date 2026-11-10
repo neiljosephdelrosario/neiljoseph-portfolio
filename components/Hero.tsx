@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -114,11 +113,8 @@ export default function Hero({ isLoaded }: HeroProps) {
             <ASCIIText
               text="/neil"
               asciiFontSize={isMobile ? 5 : 8}
-              textFontSize={isMobile ? 12 : 20}
-              planeBaseHeight={isMobile ? 5 : 8}
               textColor={asciiTextColor}
-              colors={asciiColors}
-            />
+              colors={asciiColors} style={undefined}            />
           )}
         </div>
       </div>

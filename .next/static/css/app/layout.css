@@ -854,6 +854,10 @@ video {
 .cursor-pointer{
   cursor: pointer;
 }
+.touch-pan-y{
+  --tw-pan-y: pan-y;
+  touch-action: var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom);
+}
 .resize-none{
   resize: none;
 }
