@@ -1,26 +1,48 @@
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import LightRays from '@/components/LightRays';
-import RotatingText from '@/components/RotatingText';
+import dynamic from 'next/dynamic';
+import GradientASCII from '@/components/GradientASCII';
+import { useTheme } from '@/components/context/ThemeContext';
+import StarBorder from '@/components/StarBorder';
+
+const ASCIIText = dynamic(() => import('@/components/ASCIIText'), {
+  ssr: false,
+});
 
 interface HeroProps {
   isLoaded: boolean;
 }
 
-const ROLES = [
-  'FRONTEND DEVELOPER',
-  'MOBILE DEVELOPER',
-  'UI/UX DEVELOPER',
-  'WEB DEVELOPER'
-];
-
 export default function Hero({ isLoaded }: HeroProps) {
-  const eyebrowRef = useRef<HTMLDivElement>(null);
-  const word1Ref = useRef<HTMLSpanElement>(null);
-  const word2Ref = useRef<HTMLSpanElement>(null);
-  const descRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null);
   const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  // Theme-based ASCII colors
+  const asciiTextColor = isDark ? '#fdf9f3' : '#000000';
+
+  const asciiColors = isDark
+    ? ['#bdbdbd', '#2d2f31', '#808080', '#2b2b2b']
+    : ['#252525', '#777777', '#aaaaaa', '#e0e0e0'];
+
+  // Detect phone screen size
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 640px)');
+
+    const handleResize = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
+    handleResize();
+    mediaQuery.addEventListener('change', handleResize);
+
+    return () => mediaQuery.removeEventListener('change', handleResize);
+  }, []);
 
   useEffect(() => {
     if (isLoaded) {
@@ -30,116 +52,77 @@ export default function Hero({ isLoaded }: HeroProps) {
 
   useEffect(() => {
     if (!shouldAnimate) return;
-    
+
     const ease = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const el = nameRef.current;
 
-    const setVisible = (el: HTMLElement | null, delay: number, style: Partial<CSSStyleDeclaration>) => {
-      if (!el) return;
-      setTimeout(() => {
-        Object.assign(el.style, { 
-          transition: `all 1.2s ${ease}`, 
-          ...style 
-        });
-      }, delay);
-    };
+    if (!el) return;
 
-    setVisible(eyebrowRef.current, 50, { transform: 'translateY(0)', opacity: '1' });
-    setVisible(word1Ref.current, 200, { transform: 'translateY(0)' });
-    setVisible(word2Ref.current, 350, { transform: 'translateY(0)' });
-    setVisible(descRef.current, 500, { transform: 'translateY(0)', opacity: '1' }); // Animates right after the name
+    const timer = setTimeout(() => {
+      Object.assign(el.style, {
+        transition: `all 1.2s ${ease}`,
+        transform: 'translateY(0)',
+        opacity: '1',
+      });
+    }, 200);
+
+    return () => clearTimeout(timer);
   }, [shouldAnimate]);
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-end overflow-hidden transition-colors duration-300"
-      style={{ background: 'var(--bg)', padding: '0 3rem 6rem' }}
+      className="relative min-h-screen min-h-[100svh] flex items-end justify-center overflow-hidden transition-colors duration-300"
+      style={{
+        background: 'var(--bg)',
+        padding: isMobile ? '0 1rem 2rem' : '0 3rem 3rem',
+      }}
     >
-      <div className="absolute inset-0 pointer-events-none z-0 transition-all duration-500 opacity-15 invert mix-blend-multiply dark:opacity-40 dark:invert-0 dark:mix-blend-screen">
-        <LightRays />
+      {/* Background Gradient ASCII */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0 transition-all duration-500"
+        style={{
+          opacity: isDark ? 0.5 : 1,
+          filter: isDark ? 'none' : 'invert(1)',
+          mixBlendMode: isDark ? 'screen' : 'multiply',
+        }}
+      >
+        <GradientASCII
+          dpr={undefined}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+        />
       </div>
 
-      {/* Main content */}
-      <div className="w-full relative z-20">
-        
-        {/* Eyebrow / Role Container */}
-        <div 
-          ref={eyebrowRef}
-          style={{ 
-            overflow: 'hidden', 
-            marginBottom: '0.5rem',
-            transform: 'translateY(30px)',
-            opacity: 0,
-            transition: 'transform 0.5s ease, opacity 0.5s ease',
-          }}
-        >
-          {/* Adjusted font-size and heights via Tailwind for responsive scaling */}
-          <div
-            className="inline-flex items-center font-sans tracking-tight font-medium text-xl sm:text-2xl md:text-5xl h-10 sm:h-12 md:h-20"
-            style={{
-              color: 'var(--text-eyebrow)',
-            }}
-          >
-            {shouldAnimate && (
-              <RotatingText
-                texts={ROLES}
-                mainClassName="uppercase"
-                staggerFrom="last"
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '-120%' }}
-                staggerDuration={0.025}
-                splitLevelClassName="overflow-hidden"
-                transition={{ type: 'spring', damping: 30, stiffness: 400 }}
-                rotationInterval={2500}
-              />
-            )}
-          </div>
-        </div>
-
-        {/* Headings */}
+      {/* Main ASCII Name */}
+      <div className="w-full relative z-100 flex justify-center">
         <div
-          className="font-sans font-black uppercase tracking-wide"
+          ref={nameRef}
           style={{
-            fontSize: 'clamp(3rem, 8.5vw, 7.5rem)',
-            lineHeight: 0.88,
+            position: 'relative',
+            width: '100%',
+            maxWidth: '100rem',
+            height: isMobile
+              ? 'clamp(20rem, 70vw, 30rem)'
+              : 'clamp(55rem, 22vw, 22rem)',
+            transform: 'translateY(10px)',
+            opacity: 0,
           }}
         >
-          <div style={{ overflow: 'hidden' }}>
-            <span
-              ref={word1Ref}
-              className="block transition-colors duration-300"
-              style={{ color: 'var(--text)', transform: 'translateY(100%)' }}
-            >
-              Neil
-            </span>
-          </div>
-          <div style={{ overflow: 'hidden' }}>
-            <span
-              ref={word2Ref}
-              className="block transition-colors duration-300"
-              style={{ color: 'var(--text)', transform: 'translateY(100%)' }}
-            >
-              Joseph.
-            </span>            
-          </div>
+          {shouldAnimate && (
+            <ASCIIText
+              text="/neil"
+              enableWaves={false}
+              asciiFontSize={isMobile ? 5 : 8}
+              textFontSize={isMobile ? 12 : 20}
+              planeBaseHeight={isMobile ? 5 : 8}
+              textColor={asciiTextColor}
+              colors={asciiColors}
+            />
+          )}
         </div>
-
-        {/* Description / Tagline */}
-        <div style={{ overflow: 'hidden', marginTop: '0rem' }}>
-          <div
-            ref={descRef}
-            className="font-[family-name:var(--font-sans)] text-m sm:text-l md:text-xl font-light tracking-wide max-w-xl transition-colors duration-300"
-            style={{
-              color: 'var(--text-muted, #a1a1aa)', 
-              transform: 'translateY(50px)',
-              opacity: 0,
-            }}
-          >
-            Loves to build high-performance web applications, fluid mobile apps, and refined digital experiences.
-          </div>
-        </div>
-
       </div>
     </section>
   );

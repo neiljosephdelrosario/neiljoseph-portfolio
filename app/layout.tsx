@@ -3,6 +3,7 @@ import './globals.css';
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/context/ThemeContext';
+import SmoothScroll from '@/components/SmoothScroll';
 const fontSans = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={cn("font-sans antialiased", fontSans.variable)}>
       <body>
         <ThemeProvider>
-          {children}
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

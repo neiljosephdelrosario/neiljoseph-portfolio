@@ -17,7 +17,7 @@
   --bg-secondary: #111110;
   --bg-card:      #1a1a1a;
   --bg-card-alt:  #121210;
-  --bg-tag:       #161615;
+  --bg-tag:       #161615;  
   --bg-tag-alt:   #121212;
   --border:       #262626;
   --border-card:  #1c1c1a;
@@ -291,4 +291,20 @@ html {
 ::view-transition-old(root), ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
