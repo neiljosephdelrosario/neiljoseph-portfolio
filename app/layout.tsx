@@ -12,7 +12,7 @@ const fontSans = Inter({
 
 export const metadata: Metadata = {
   title: 'Neil Joseph | Portfolio',
-  description: 'Portfolio of Neil Joseph, Software Engineer.',
+  description: 'Portfolio of Neil Joseph',
   icons: {
     icon: "/favicon.ico", 
   },
