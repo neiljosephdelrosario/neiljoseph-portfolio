@@ -113,7 +113,6 @@ export default function Hero({ isLoaded }: HeroProps) {
           {shouldAnimate && (
             <ASCIIText
               text="/neil"
-              enableWaves={false}
               asciiFontSize={isMobile ? 5 : 8}
               textFontSize={isMobile ? 12 : 20}
               planeBaseHeight={isMobile ? 5 : 8}
