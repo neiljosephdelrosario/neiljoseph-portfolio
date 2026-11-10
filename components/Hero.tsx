@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import GradientASCII from '@/components/GradientASCII';
 import { useTheme } from '@/components/context/ThemeContext';
-import StarBorder from '@/components/StarBorder';
 
 const ASCIIText = dynamic(() => import('@/components/ASCIIText'), {
   ssr: false,
