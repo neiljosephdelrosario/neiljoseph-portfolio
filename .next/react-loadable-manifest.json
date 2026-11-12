@@ -1,4 +1,10 @@
 {
+  "components\\About.tsx -> ./SplitFlapText": {
+    "id": "components\\About.tsx -> ./SplitFlapText",
+    "files": [
+      "static/chunks/_app-pages-browser_components_SplitFlapText_tsx.js"
+    ]
+  },
   "components\\Hero.tsx -> @/components/ASCIIText": {
     "id": "components\\Hero.tsx -> @/components/ASCIIText",
     "files": [
