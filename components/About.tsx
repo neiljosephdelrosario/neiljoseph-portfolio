@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/terminal';
+import AsciiPortrait from './AsciiProtrait';
 
 /* Client-only on purpose: SplitFlapText injects its CSS through a <style> tag whose text
    contains quotes. React escapes those during SSR but not on the client, which is what
@@ -13,7 +13,7 @@ const SplitFlapText = dynamic(() => import('./SplitFlapText'), { ssr: false });
 /* ──────────────────────────────────────────────────────────────
    About
    · SplitFlapText headings (client-only, sized to always fit the container)
-   · Magic UI Terminal (whoami + goal)
+   · ASCII portrait of neil.png (scan-in reveal + chromatic cursor lens)
    · glyph field: a tiled CSS background + one small canvas that follows the cursor
    · bio that scans in word by word on scroll
    · monochrome scroll-driven timeline for work + education
@@ -54,9 +54,6 @@ const glyphAt = (r: number, c: number, bucket = -1) => {
 
 const BIO =
   "I'm Neil Joseph, a frontend developer passionate about creating seamless, visually compelling digital experiences. I specialize in bringing layouts to life, bridging the gap between pixel-perfect designs and clean, functional interfaces. I enjoy learning new modern frameworks, tackling development challenges, and keeping up with the latest trends in UI animation and web performance.";
-
-const GOAL =
-  'To work with cross-functional teams to create intuitive, responsive web applications and tactile UI solutions that make a real difference in user experience and digital products.';
 
 const BIO_WORDS = BIO.split(' ');
 
@@ -198,7 +195,7 @@ function FlapHeading({ text, max }: { text: string; max: string }) {
 /* ───────────── glyph field ─────────────
    · base layer: one small tile painted once and repeated by CSS (no full-size canvas)
    · light layer: a 340px canvas that follows the cursor — ~460 glyphs per frame
-   Nothing depends on the section's height, so the terminal typing never triggers a repaint. */
+   Nothing depends on the section's height, so layout changes never trigger a repaint. */
 
 type HostRef = { current: HTMLElement | null };
 
@@ -466,7 +463,7 @@ export default function About() {
         {/* ── TITLE ── */}
         <FlapHeading text="get to know me" max="6rem" />
 
-        {/* ── BIO + TERMINAL ── */}
+        {/* ── BIO + ASCII PORTRAIT ── */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
           <p
             ref={bioRef}
@@ -488,17 +485,12 @@ export default function About() {
             ))}
           </p>
 
-          <div className="md:col-span-5 w-full min-w-0 md:sticky md:top-28">
-            {/* Magic UI Terminal — sequences its children automatically, starts when it enters the viewport */}
-            <Terminal className="max-w-none max-h-none border-[color:var(--border)] bg-[color:var(--work-card-bg)] text-[color:var(--text)] text-[13px] sm:text-sm overflow-x-auto">
-              <TypingAnimation>$ whoami</TypingAnimation>
-              <AnimatedSpan className="text-green-500">Neil Joseph A. Del Rosario, Aspiring Frontend Developer</AnimatedSpan>
-              <TypingAnimation>$ cat goal.txt</TypingAnimation>
-              <TypingAnimation className="whitespace-pre-wrap break-words text-[color:var(--text-muted)]">
-                {GOAL}
-              </TypingAnimation>
-            </Terminal>
-          </div>
+          <figure
+            className="md:col-span-5 w-full min-w-0 md:sticky md:top-28 flex flex-col gap-2"
+            style={{ margin: 0 }}
+          >
+            <AsciiPortrait src="/assets/neil.png" cols={84} alt="ASCII portrait of Neil Joseph" />
+          </figure>
         </div>
 
         {/* ── JOURNEY: work + education on one timeline ── */}
